@@ -10,7 +10,7 @@ connectToMongoDB('mongodb://localhost:27017/short-url').then(()=>{
     console.log("Mongodb connected")
 })
 
-
+//middleware
 app.use(express.json())
 app.use('/url',urlRoute)
 
