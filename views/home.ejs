@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My HomePage</title>
+  <style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+  }
+  /* Form container to control width and center */
+  form {
+    max-width: 400px;  /* adjust width as you want */
+    margin: 20px auto; /* centers the form horizontally and adds vertical space */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* space between input and button */
+  }
+  input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%; /* full width of form */
+    box-sizing: border-box;
+  }
+  button {
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  table {
+  width: 80%;         
+  margin: 20px auto;    
+  border-collapse: collapse;
+  table-layout: fixed; 
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  word-wrap: break-word; 
+  text-align: center;
+}
+
+
+th:nth-child(1), td:nth-child(1) { width: 10%; } 
+th:nth-child(2), td:nth-child(2) { width: 20%; }   
+th:nth-child(3), td:nth-child(3) { width: 50%; }   
+th:nth-child(4), td:nth-child(4) { width: 20%; }   
+
+
+</style>
+
+</head>
+<body>
+
+  <h1>URL Shortener</h1>
+
+  <% if (locals.id) { %>
+    <p>URL Generated: <a href="http://localhost:8001/url/<%= id %>">http://localhost:8001/url/<%= id %></a></p>
+  <% } %>
+
+  <div>
+    <form method="POST" action="/url">
+      <label>Enter Your Original URL:</label>
+      <input type="text" name="url" placeholder="http://example.com" required />
+      <button type="submit">Generate</button>
+    </form>
+  </div>
+
+  <% if (locals.urls) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>S.NO</th>
+          <th>ShortID</th>
+          <th>Redirect</th>
+          <th>Clicks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% urls.forEach((url, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><a href="/url/<%= url.shortId %>"><%= url.shortId %></a></td>
+            <td><%= url.redirectURL %></td>
+            <td><%= url.visitHistory.length %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+
+</body>
+</html>
