@@ -1,3 +1,5 @@
+//schema for the url
+
 const mongoose=require('mongoose');
 
 
